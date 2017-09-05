@@ -23,7 +23,7 @@ namespace ECommerceApp3.ViewModels
         #endregion
 
         #region Commands
-        public ICommand NavegateCommand { get { return new RelayCommand(Navigate); } }
+        public ICommand NavigateCommand { get { return new RelayCommand(Navigate); } }
 
         private async void Navigate()
         {

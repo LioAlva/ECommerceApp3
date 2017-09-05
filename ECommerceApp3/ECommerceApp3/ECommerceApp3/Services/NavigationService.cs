@@ -11,13 +11,18 @@ namespace ECommerceApp3.Services
     {
         public async Task Navigate(string pageName)
         {
+            App.Master.IsPresented = false;
             switch (pageName)
             {
+                
                 case "CustomersPage":
                     await App.Navigator.PushAsync(new CustomersPage());
                     ; break;
                 case "DeliveriesPage":
                     await App.Navigator.PushAsync(new DeliveriesPage());
+                    ; break;
+                case "OrdersPage":
+                    await App.Navigator.PushAsync(new OrdersPage());
                     ; break;
                 case "ProductsPage":
                     await App.Navigator.PushAsync(new ProductsPage());
