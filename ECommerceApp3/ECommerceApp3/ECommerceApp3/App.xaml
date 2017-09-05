@@ -16,6 +16,8 @@
             <Color x:Key="MenuFontColor">#e1e7e8</Color>
             <Color x:Key="BackgroundColor">#37646b</Color>
             <Color x:Key="AccentColor">#b22e22</Color>
+            <Color x:Key="ComodinColor">#FFCC00</Color>
+            
 
             <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
         </ResourceDictionary>
