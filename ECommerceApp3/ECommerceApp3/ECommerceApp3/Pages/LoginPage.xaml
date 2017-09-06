@@ -28,8 +28,9 @@
             Color="{StaticResource MainColor}"></BoxView>
         <Entry
             Text="{Binding User,Mode=TwoWay}"
-        Placeholder="Usuario"
-        TextColor="{StaticResource MainColor}"></Entry>
+            Keyboard="Email"
+            Placeholder="Usuario"
+            TextColor="{StaticResource MainColor}"></Entry>
         <Entry
             Text="{Binding Password,Mode=TwoWay}"
             Placeholder="Constraseña"

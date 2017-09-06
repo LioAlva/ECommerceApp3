@@ -14,6 +14,7 @@ namespace ECommerceApp3.ViewModels
         #region Attributes
         private NavigationService navigationService;
         private DialogService dialogService;
+        private ApiService apiService;
         #endregion
 
         #region Properties
@@ -27,6 +28,8 @@ namespace ECommerceApp3.ViewModels
         {
             dialogService = new DialogService();
             navigationService = new NavigationService();
+            IsRemembered = true;
+            apiService = new ApiService();
         } 
         #endregion
 
@@ -45,6 +48,14 @@ namespace ECommerceApp3.ViewModels
                 await dialogService.ShowMessage("Error", "Debes Ingresar una Contraseña");
                 return;
             }
+            var response = await apiService.Login(User,Password);
+
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error",response.Message);
+                return;
+            }
+
             navigationService.SetMainPage();
         }
         #endregion
