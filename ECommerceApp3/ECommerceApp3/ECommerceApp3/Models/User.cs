@@ -45,6 +45,11 @@ namespace ECommerceApp3.Models
         public bool IsCustomer { get; set; }
 
         public bool IsSupplier { get; set; }
+        //2 atributtos que no te manda el servicio, esto es para validar la contraeña VALIDAR LA CONTRASEñA ANTERIOR
+
+        public bool IsRemembered { get; set; }//para saber si se recuerda o no  
+
+        public string Password { get; set; }
 
         public override int GetHashCode()
         {

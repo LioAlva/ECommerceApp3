@@ -1,4 +1,5 @@
-﻿using ECommerceApp3.Services;
+﻿using ECommerceApp3.Models;
+using ECommerceApp3.Services;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace ECommerceApp3.ViewModels
         private DialogService dialogService;
         private ApiService apiService;
         public bool isRunning;//creamos estapropiedad junto con el evento
+        public DataService dataService;
         #endregion
 
         #region Event
@@ -52,8 +54,9 @@ namespace ECommerceApp3.ViewModels
         {
             dialogService = new DialogService();
             navigationService = new NavigationService();
-            IsRemembered = true;
             apiService = new ApiService();
+            dataService = new DataService();
+            IsRemembered = true;
         } 
         #endregion
 
@@ -82,6 +85,11 @@ namespace ECommerceApp3.ViewModels
                 await dialogService.ShowMessage("Error",response.Message);
                 return;
             }
+            var user = (User)response.Result;
+            user.IsRemembered = IsRemembered;
+            user.Password = Password;
+
+            dataService.InsertUser(user);
 
             navigationService.SetMainPage();
         }
