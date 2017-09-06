@@ -42,6 +42,10 @@
             HorizontalOptions="Center"
             VerticalOptions="Center"
             TextColor="{StaticResource AccentColor}"></Button>
+        <!--activity indicator sirve para qu eparesca que corre-->
+        <ActivityIndicator
+            IsRunning="{Binding IsRunning}">
+        </ActivityIndicator>
         <StackLayout 
             Orientation="Horizontal" 
             HorizontalOptions="Center">
