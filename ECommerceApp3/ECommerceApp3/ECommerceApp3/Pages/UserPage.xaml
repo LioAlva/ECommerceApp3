@@ -11,6 +11,11 @@
                  Spacing="10"
                  Padding="8"
                  BindingContext="{Binding UserLoged}">
+        <Image
+            Source="{Binding Photo}"
+            HeightRequest="300"
+            WidthRequest="300"
+            ></Image>
         <Label
             TextColor="{StaticResource FontColor}"
             FontSize="18"

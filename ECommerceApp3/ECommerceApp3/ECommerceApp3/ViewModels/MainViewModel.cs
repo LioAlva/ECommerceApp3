@@ -37,6 +37,8 @@ namespace ECommerceApp3.ViewModels
         {
             var user = dataService.GetUser();
             UserLoged.FullName = user.FullName;
+            //112 ahora mostramos la photo
+            UserLoged.Photo = user.PhotoFullPath;
         }
         #endregion
 
