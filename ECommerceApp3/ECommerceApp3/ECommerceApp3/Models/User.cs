@@ -51,6 +51,9 @@ namespace ECommerceApp3.Models
 
         public string Password { get; set; }
 
+        //Luego de logearse , la respuesta lo que trae el usuario
+        public string FullName { get { return string.Format("{0} {1}",FirstName,LastName); } }
+
         public override int GetHashCode()
         {
             return UserId;

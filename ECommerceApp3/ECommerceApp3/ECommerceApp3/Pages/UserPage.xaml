@@ -4,11 +4,26 @@
              x:Class="ECommerceApp3.Pages.UserPage"
              Title="ECommerce App"
              BackgroundColor="{StaticResource BackgroundColor}"
-             BindingContext="{Binding Main,Source={StaticResource Locator}}"
-             >
+             BindingContext="{Binding Main,Source={StaticResource Locator}}">
 
-    <Label Text="User page" 
-            VerticalOptions="Center" 
-           HorizontalOptions="Center"
-           TextColor="{StaticResource FontColor}"/>
+    <StackLayout 
+                 VerticalOptions="CenterAndExpand"
+                 Spacing="10"
+                 Padding="8"
+                 BindingContext="{Binding UserLoged}">
+        <Label
+            TextColor="{StaticResource FontColor}"
+            FontSize="18"
+            FontAttributes="Bold"
+            Text="Bienvenid@"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"></Label>
+        <Label
+            TextColor="{StaticResource AccentColor}"
+            FontSize="24"
+            FontAttributes="Bold"
+            Text="{Binding FullName}"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"></Label>
+    </StackLayout>
 </ContentPage>

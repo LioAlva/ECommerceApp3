@@ -52,6 +52,11 @@ namespace ECommerceApp3.Services
             }
         }
 
+        public  User GetCurrentUser()
+        {
+            return App.CurrentUser;
+        }
+
         private void Logout()
         {
             App.CurrentUser.IsRemembered = false; //lo dejamos de recordar por que hicimos un logut ,ahora creamos un servicio que nos ayudaraupdetear uduarios
