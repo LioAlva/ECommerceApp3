@@ -1,11 +1,16 @@
 ﻿
 using ECommerceApp3.Pages;
+using ECommerceApp3.Services;
 using Xamarin.Forms;
 
 namespace ECommerceApp3
 {
     public partial class App : Application
     {
+        #region Atributtes
+        public DataService dataService;
+        #endregion
+
         #region Properties
         public static NavigationPage Navigator { get; internal set; }
         public static MasterPage Master { get; internal set; }
@@ -16,7 +21,18 @@ namespace ECommerceApp3
         public App()
         {
             InitializeComponent();
-            MainPage = new LoginPage();
+            dataService = new DataService();
+            var user = dataService.GetUser();
+            //si hay usuario y si esta recordado
+            if (user!=null && user.IsRemembered)
+            {
+                MainPage = new MasterPage();
+            }
+            else
+            {
+                MainPage = new LoginPage();
+            }
+                
 //            MainPage = new MasterPage();
         }
         #endregion

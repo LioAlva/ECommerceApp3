@@ -10,6 +10,15 @@ namespace ECommerceApp3.Services
 {
     public class DataService
     {
+
+        public User GetUser()
+        {
+            using (var da=new DataAccess())
+            {
+                return da.First<User>(true);
+            }
+        }
+
         public Response InsertUser(User user){
             try
             {
@@ -36,7 +45,7 @@ namespace ECommerceApp3.Services
                 {
                     IsSuccess = false,
                     Message=ex.Message,
-                    Result=
+                   // Result=
                 };
             }
         }
