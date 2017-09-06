@@ -1,4 +1,5 @@
 ﻿
+using ECommerceApp3.Models;
 using ECommerceApp3.Pages;
 using ECommerceApp3.Services;
 using Xamarin.Forms;
@@ -14,6 +15,7 @@ namespace ECommerceApp3
         #region Properties
         public static NavigationPage Navigator { get; internal set; }
         public static MasterPage Master { get; internal set; }
+        public static User CurrentUser { get; internal set; }
 
         #endregion
 
@@ -26,6 +28,7 @@ namespace ECommerceApp3
             //si hay usuario y si esta recordado
             if (user!=null && user.IsRemembered)
             {
+                App.CurrentUser = user;//sera para cuando vamos a desloguear saber  ue objeto se deslogueara
                 MainPage = new MasterPage();
             }
             else

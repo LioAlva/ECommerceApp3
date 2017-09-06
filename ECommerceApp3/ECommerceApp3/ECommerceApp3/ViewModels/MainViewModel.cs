@@ -70,7 +70,7 @@ namespace ECommerceApp3.ViewModels
             {
                 Icon = "ic_action_logut.png",
                 PageName = "LogutPage",
-                Title = "Salir"
+                Title = "Cerrar Sesión"
             });
         } 
         #endregion

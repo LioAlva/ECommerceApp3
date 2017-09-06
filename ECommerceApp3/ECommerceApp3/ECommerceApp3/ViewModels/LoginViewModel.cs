@@ -91,7 +91,7 @@ namespace ECommerceApp3.ViewModels
 
             dataService.InsertUser(user);
 
-            navigationService.SetMainPage();
+            navigationService.SetMainPage(user);
         }
         #endregion
 

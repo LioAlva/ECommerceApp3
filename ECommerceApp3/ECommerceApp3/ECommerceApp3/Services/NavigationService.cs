@@ -1,4 +1,5 @@
-﻿using ECommerceApp3.Pages;
+﻿using ECommerceApp3.Models;
+using ECommerceApp3.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,13 @@ namespace ECommerceApp3.Services
 {
     public class NavigationService
     {
+        private DataService dataService;
+
+        public NavigationService()
+        {
+            dataService = new DataService();
+        }
+
         public async Task Navigate(string pageName)
         {
             App.Master.IsPresented = false;
@@ -36,13 +44,24 @@ namespace ECommerceApp3.Services
                 case "UserPage":
                     await App.Navigator.PushAsync(new UserPage());
                     ; break;
+                case "LogutPage":
+                    Logout();
+                    ; break;
                 default:
                     break;
             }
         }
 
-        internal void SetMainPage()
+        private void Logout()
         {
+            App.CurrentUser.IsRemembered = false; //lo dejamos de recordar por que hicimos un logut ,ahora creamos un servicio que nos ayudaraupdetear uduarios
+            dataService.UpdateUser(App.CurrentUser);
+            App.Current.MainPage = new LoginPage();
+        }
+
+        internal void SetMainPage(User user)
+        {
+            App.CurrentUser = user;//esta propiedad creo para guardar al usduario cuando doy logout y luego pueda conectarme si internet
             App.Current.MainPage = new MasterPage();    
         }
     }
