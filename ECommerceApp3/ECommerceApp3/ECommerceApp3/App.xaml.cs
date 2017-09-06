@@ -9,6 +9,7 @@ namespace ECommerceApp3
         #region Properties
         public static NavigationPage Navigator { get; internal set; }
         public static MasterPage Master { get; internal set; }
+
         #endregion
 
         #region Constructors
@@ -16,6 +17,7 @@ namespace ECommerceApp3
         {
             InitializeComponent();
             MainPage = new LoginPage();
+//            MainPage = new MasterPage();
         }
         #endregion
 

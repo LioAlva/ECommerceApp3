@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using ECommerceApp3.Services;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +11,43 @@ namespace ECommerceApp3.ViewModels
 {
     public class LoginViewModel
     {
+        #region Attributes
+        private NavigationService navigationService;
+        private DialogService dialogService;
+        #endregion
+
         #region Properties
         public string User { get; set; }
         public string Password { get; set; }
-        public string IsRemembered { get; set; }
+        public bool IsRemembered { get; set; }
         #endregion
-        
+
+        #region Constructors
+        public LoginViewModel()
+        {
+            dialogService = new DialogService();
+            navigationService = new NavigationService();
+        } 
+        #endregion
+
         #region Commands
         public ICommand LoginCommand { get { return new RelayCommand(Login); } }
 
-        private void Login()
+        private async void Login()
         {
-            throw new NotImplementedException();
-        } 
+            if (string.IsNullOrEmpty(User))
+            {
+                await dialogService.ShowMessage("Error","Debes Ingresar un Usuario");
+                return;
+            }
+            if (string.IsNullOrEmpty(Password))
+            {
+                await dialogService.ShowMessage("Error", "Debes Ingresar una Contraseña");
+                return;
+            }
+            navigationService.SetMainPage();
+        }
         #endregion
+
     }
 }

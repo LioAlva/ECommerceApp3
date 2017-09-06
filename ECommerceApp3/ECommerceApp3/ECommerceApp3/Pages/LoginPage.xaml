@@ -30,31 +30,32 @@
             Text="{Binding User,Mode=TwoWay}"
         Placeholder="Usuario"
         TextColor="{StaticResource MainColor}"></Entry>
-    <Entry
-        Text="{Binding Password,Mode=TwoWay}"
-        Placeholder="Constraseña"
-        IsPassword="True"
-        TextColor="{StaticResource MainColor}"></Entry>
+        <Entry
+            Text="{Binding Password,Mode=TwoWay}"
+            Placeholder="Constraseña"
+            IsPassword="True"
+            TextColor="{StaticResource MainColor}"></Entry>
     <Button
         Command="{Binding LoginCommand}"
         Text="Ingresar"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             TextColor="{StaticResource AccentColor}"></Button>
-    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-        <Label Text="Recuerdame" 
-               TextColor="{StaticResource MainColor}"
-               HorizontalOptions="StartAndExpand"
-            VerticalOptions="Center"></Label>
-        <Switch
-            IsToggled="{Binding IsRemembered,Mode=TwoWay}"
-            HorizontalOptions="End"
-            VerticalOptions="Center"></Switch>
-    </StackLayout>
-    <Label Text="¿Has Olvidado tu contraseña" 
+        <StackLayout 
+            Orientation="Horizontal" 
+            HorizontalOptions="Center">
+            <Label Text="Recuerdame" 
+                   TextColor="{StaticResource MainColor}"
+                   HorizontalOptions="StartAndExpand"
+                VerticalOptions="Center"></Label>
+            <Switch
+                IsToggled="{Binding IsRemembered,Mode=TwoWay}"
+                HorizontalOptions="End"
+                VerticalOptions="Center"></Switch>
+        </StackLayout>
+        <Label Text="¿Has Olvidado tu contraseña" 
            TextColor="{StaticResource AccentColor}"
                HorizontalOptions="Center"
             VerticalOptions="Center"></Label>
-        
     </StackLayout>
 </ContentPage>
