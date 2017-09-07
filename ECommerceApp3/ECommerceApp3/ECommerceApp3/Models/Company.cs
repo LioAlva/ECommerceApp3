@@ -24,6 +24,12 @@ namespace ECommerceApp3.Models
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<User> Users { get; set; }
 
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public List<Product> Products { get; set; }
+
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public List<CompanyCustomer> CompanyCustomers { get; set; }
+
         public override int GetHashCode()
         {
             return CompanyId;
