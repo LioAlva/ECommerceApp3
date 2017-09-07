@@ -1,4 +1,5 @@
-﻿using ECommerceApp3.Services;
+﻿using ECommerceApp3.Models;
+using ECommerceApp3.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,22 +24,55 @@ namespace ECommerceApp3.ViewModels
         #region Constructor
         public MainViewModel()
         {
+            //esto es para SingletoN
+            instance = this;
+
+            //Create observable collections
             Menu = new ObservableCollection<MenuItemViewModel>();
+
+            //Create Views
             NewLogin = new LoginViewModel();
             UserLoged = new UserViewModel();
+
+            //Instance services
             dataService = new DataService();
+
+            //Load Data
             LoadMenu();
-            LoadUser();
+           // LoadUser();//ECommerce 113, al inicio no tengo usuario es un coletaso del logeo anterior no del de ahora y para solucionarlo 
+            //para ello creo un Singleton que es una clase statica para instanciar algun metodo.
         }
         #endregion
 
-        #region Methods
-        private void LoadUser()
+        //aqui soluciona el load user.
+        #region Singleton
+
+        static MainViewModel instance;
+
+        public static MainViewModel GetInstance()
         {
-            var user = dataService.GetUser();
-            UserLoged.FullName = user.FullName;
-            //112 ahora mostramos la photo
-            UserLoged.Photo = user.PhotoFullPath;
+            if (instance == null)
+            {
+                instance = new MainViewModel();
+            }
+
+            return instance;
+        }
+
+        #endregion
+
+
+        #region Methods
+         public void LoadUser(User user)
+        {
+           // var user = dataService.GetUser();  //aca muere
+            //alinicio en nuevo cell sale error porque no hay usuario y asignas user null a fullname y photofullpth
+            if (user!=null)
+            {
+                UserLoged.FullName = user.FullName;
+                //112 ahora mostramos la photo
+                UserLoged.Photo = user.PhotoFullPath;
+            }
         }
         #endregion
 

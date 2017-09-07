@@ -2,6 +2,7 @@
 using ECommerceApp3.Models;
 using ECommerceApp3.Pages;
 using ECommerceApp3.Services;
+using ECommerceApp3.ViewModels;
 using Xamarin.Forms;
 
 namespace ECommerceApp3
@@ -23,11 +24,18 @@ namespace ECommerceApp3
         public App()
         {
             InitializeComponent();
+
+            //MODEO TERESA
             dataService = new DataService();
             var user = dataService.GetUser();
             //si hay usuario y si esta recordado
             if (user!=null && user.IsRemembered)
             {
+                //ESTO LUEGO DEL MODO TERESA CUANDO AL INICIO ME LOGEO PUES NO TENGO NINGUN USUARIO
+
+                var mainViewModel = MainViewModel.GetInstance();
+                mainViewModel.LoadUser(user);
+
                 App.CurrentUser = user;//sera para cuando vamos a desloguear saber  ue objeto se deslogueara
                 MainPage = new MasterPage();
             }
