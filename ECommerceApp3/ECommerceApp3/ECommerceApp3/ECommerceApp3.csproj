@@ -41,6 +41,7 @@
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Infrastructure\InstanceLocator.cs" />
     <Compile Include="Interfaces\IConfig.cs" />
+    <Compile Include="Interfaces\INetworkConnection.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -93,6 +94,7 @@
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\NetService.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MenuItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

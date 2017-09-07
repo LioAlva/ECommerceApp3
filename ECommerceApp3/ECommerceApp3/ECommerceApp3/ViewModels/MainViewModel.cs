@@ -14,6 +14,7 @@ namespace ECommerceApp3.ViewModels
         #region Attributes
         private DataService dataService;
         private ApiService apiService;
+        private NetService netService;
         #endregion
 
         #region Properties
@@ -44,6 +45,10 @@ namespace ECommerceApp3.ViewModels
 
             //ecommerce 116 para productos
             apiService = new ApiService();
+
+            //esto es para networking 117 ecommerce
+            netService = new NetService();
+
             //Load Data
             LoadMenu();
             // LoadUser();//ECommerce 113, al inicio no tengo usuario es un coletaso del logeo anterior no del de ahora y para solucionarlo 
@@ -140,7 +145,20 @@ namespace ECommerceApp3.ViewModels
 
         private async void LoadProducts()
         {
-            var products = await apiService.GetProducts();
+            var products = new List<Product>();
+
+            if (netService.IsConnected())
+            {//cuando hay conneccion lo guado los productos , 
+                products = await apiService.GetProducts();
+                dataService.SaveProducts(products);
+            }
+            else
+            {//cuando no  hay connecion jalomos de la BD local
+                products = dataService.GetProducts();
+            }
+            
+            //aca preguntamos si hay coneccion ECommerce 117
+
             Products.Clear();
 
             foreach (var product in products)

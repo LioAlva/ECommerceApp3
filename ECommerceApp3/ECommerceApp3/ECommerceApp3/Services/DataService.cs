@@ -76,6 +76,31 @@ namespace ECommerceApp3.Services
                     };
                 }
             }
+
+        public void SaveProducts(List<Product> products)
+        {
+            using (var da=new DataAccess())
+            {
+                var oldProducts = da.GetList<Product>(false);
+                foreach (var  product  in oldProducts)
+                {
+                    da.Delete(product);
+                }
+
+                foreach (var product in products)
+                {
+                    da.Insert(product);
+                }
+            }
         }
+
+        public List<Product> GetProducts()
+        {
+            using (var da=new DataAccess())
+            {
+                return  da.GetList<Product>(true);
+            }
+        }
+    }
     }
 
