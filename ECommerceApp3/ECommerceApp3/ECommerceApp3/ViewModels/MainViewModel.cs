@@ -1,11 +1,13 @@
 ﻿using ECommerceApp3.Models;
 using ECommerceApp3.Services;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ECommerceApp3.ViewModels
 {
@@ -23,7 +25,9 @@ namespace ECommerceApp3.ViewModels
         public ObservableCollection<ProductItemViewModel> Products { get; set; }
 
         public LoginViewModel NewLogin { get; set; }
-        public UserViewModel  UserLoged { get; set; }  
+        public UserViewModel  UserLoged { get; set; }
+
+        public string Filter { get; set; }
         #endregion
 
         #region Constructor
@@ -86,6 +90,45 @@ namespace ECommerceApp3.ViewModels
                 UserLoged.FullName = user.FullName;
                 //112 ahora mostramos la photo
                 UserLoged.Photo = user.PhotoFullPath;
+            }
+        }
+        #endregion
+
+        #region Commands
+        public ICommand SearchProductCommand { get {return new RelayCommand(SearchProduct); } }
+
+        private void SearchProduct()
+        {
+        
+
+         
+                var products = dataService.GetProducts(Filter);
+                dataService.SaveProducts(products);
+            
+          
+            //aca preguntamos si hay coneccion ECommerce 117
+
+            Products.Clear();
+
+            foreach (var product in products)
+            {
+                Products.Add(new ProductItemViewModel
+                {
+                    BarCode = product.BarCode,
+                    Category = product.Category,
+                    CategoryId = product.CategoryId,
+                    Company = product.Company,
+                    CompanyId = product.CompanyId,
+                    Description = product.Description,
+                    Image = product.Image,
+                    Inventories = product.Inventories,
+                    Price = product.Price,
+                    ProductId = product.ProductId,
+                    Remarks = product.Remarks,
+                    Stock = product.Stock,
+                    Tax = product.Tax,
+                    TaxId = product.TaxId
+                });
             }
         }
         #endregion

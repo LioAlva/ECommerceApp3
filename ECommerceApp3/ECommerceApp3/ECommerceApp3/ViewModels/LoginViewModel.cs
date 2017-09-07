@@ -17,6 +17,8 @@ namespace ECommerceApp3.ViewModels
         private NavigationService navigationService;
         private DialogService dialogService;
         private ApiService apiService;
+        //ECOMMERCE 118
+        private NetService netService;
         public bool isRunning;//creamos estapropiedad junto con el evento
         public DataService dataService;
         #endregion
@@ -56,6 +58,8 @@ namespace ECommerceApp3.ViewModels
             navigationService = new NavigationService();
             apiService = new ApiService();
             dataService = new DataService();
+            netService = new NetService();
+
             IsRemembered = true;
         } 
         #endregion
@@ -77,7 +81,16 @@ namespace ECommerceApp3.ViewModels
             }
 
             IsRunning = true;
-            var response = await apiService.Login(User,Password);
+            var response = new Response();//video 118 para logear ssin conexion.
+            if (netService.IsConnected())
+            {
+                response = await apiService.Login(User, Password);
+            }
+            else
+            {
+                response = dataService.Login(User, Password);
+            }
+           
             IsRunning = false;
 
             if (!response.IsSuccess)
