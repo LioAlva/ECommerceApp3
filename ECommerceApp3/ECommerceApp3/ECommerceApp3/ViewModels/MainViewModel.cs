@@ -13,10 +13,14 @@ namespace ECommerceApp3.ViewModels
     {
         #region Attributes
         private DataService dataService;
+        private ApiService apiService;
         #endregion
 
         #region Properties
         public ObservableCollection<MenuItemViewModel> Menu { get; set; }
+
+        public ObservableCollection<ProductItemViewModel> Products { get; set; }
+
         public LoginViewModel NewLogin { get; set; }
         public UserViewModel  UserLoged { get; set; }  
         #endregion
@@ -29,6 +33,7 @@ namespace ECommerceApp3.ViewModels
 
             //Create observable collections
             Menu = new ObservableCollection<MenuItemViewModel>();
+            Products = new ObservableCollection<ProductItemViewModel>();
 
             //Create Views
             NewLogin = new LoginViewModel();
@@ -39,9 +44,11 @@ namespace ECommerceApp3.ViewModels
 
             //Load Data
             LoadMenu();
-           // LoadUser();//ECommerce 113, al inicio no tengo usuario es un coletaso del logeo anterior no del de ahora y para solucionarlo 
+            // LoadUser();//ECommerce 113, al inicio no tengo usuario es un coletaso del logeo anterior no del de ahora y para solucionarlo 
             //para ello creo un Singleton que es una clase statica para instanciar algun metodo.
+            LoadProducts();
         }
+
         #endregion
 
         //aqui soluciona el load user.
@@ -126,7 +133,13 @@ namespace ECommerceApp3.ViewModels
                 PageName = "LogutPage",
                 Title = "Cerrar Sesión"
             });
-        } 
+        }
+
+
+        private async void LoadProducts()
+        {
+         //var products=await apiService.ge
+        }
         #endregion
     }
 }

@@ -6,7 +6,7 @@ namespace ECommerceApp3.Models
 {
     public class Customer
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement]//cuando yo jalo la consulta el respeta  los que biene y los nuevos se jala del ultimo los que biene.
         public int CustomerId { get; set; }
 
         public string UserName { get; set; }
