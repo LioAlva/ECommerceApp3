@@ -23,9 +23,10 @@ namespace ECommerceApp3.Services
                 var request = JsonConvert.SerializeObject(loginRequest);
                 var content =new  StringContent(request,Encoding.UTF8,"application/json");
                 var client = new HttpClient();
-                //client.BaseAddress = new Uri("http://zulu-software.com");
-                client.BaseAddress = new Uri("http://luisperseo-001-site1.itempurl.com");
-                var url = "/api/Users/Login";
+                client.BaseAddress = new Uri("http://zulu-software.com");
+                //client.BaseAddress = new Uri("http://luisperseo-001-site1.itempurl.com");
+                //var url = "/api/Users/Login";
+                var url = "/ECommerce/api/Users/Login";
                 var response = await client.PostAsync(url,content);
 
                 if(!response.IsSuccessStatusCode)
@@ -54,6 +55,31 @@ namespace ECommerceApp3.Services
                     Message=ex.Message
                 };
             }
-        } 
+        }
+
+        public async Task<List<Product>> GetProducts()
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://zulu-software.com");
+                //client.BaseAddress = new Uri("http://luisperseo-001-site1.itempurl.com");
+                var url = "/ECommerce/api/Products";
+                var response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var products = JsonConvert.DeserializeObject<List<Product>>(result);
+                return products;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

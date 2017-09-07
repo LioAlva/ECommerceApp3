@@ -54,7 +54,7 @@ namespace ECommerceApp3.Models
         //Luego de logearse , la respuesta lo que trae el usuario
         public string FullName { get { return string.Format("{0} {1}",FirstName,LastName); } }
         //creamos para foto 112
-        public string PhotoFullPath { get { return string.Format("http://luisperseo-001-site1.itempurl.com/{0}", Photo.Substring(1)); } }
+        public string PhotoFullPath { get { return string.Format("http://zulu-software.com/ECommerce{0}", Photo.Substring(1)); } }
 
         public override int GetHashCode()
         {

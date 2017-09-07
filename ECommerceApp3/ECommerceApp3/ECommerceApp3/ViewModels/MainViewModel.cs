@@ -42,6 +42,8 @@ namespace ECommerceApp3.ViewModels
             //Instance services
             dataService = new DataService();
 
+            //ecommerce 116 para productos
+            apiService = new ApiService();
             //Load Data
             LoadMenu();
             // LoadUser();//ECommerce 113, al inicio no tengo usuario es un coletaso del logeo anterior no del de ahora y para solucionarlo 
@@ -138,7 +140,28 @@ namespace ECommerceApp3.ViewModels
 
         private async void LoadProducts()
         {
-         //var products=await apiService.ge
+            var products = await apiService.GetProducts();
+            Products.Clear();
+
+            foreach (var product in products)
+            {
+                Products.Add(new ProductItemViewModel {
+                    BarCode=product.BarCode,
+                    Category = product.Category,
+                    CategoryId = product.CategoryId,
+                    Company = product.Company,
+                    CompanyId = product.CompanyId,
+                    Description = product.Description,
+                    Image = product.Image,
+                    Inventories = product.Inventories,
+                    Price = product.Price,
+                    ProductId = product.ProductId,
+                    Remarks = product.Remarks,
+                    Stock = product.Stock,
+                    Tax = product.Tax,
+                    TaxId = product.TaxId
+                });
+            }
         }
         #endregion
     }
