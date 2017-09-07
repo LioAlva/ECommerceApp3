@@ -1,6 +1,6 @@
 ﻿using Android.Content;
 using Android.Net;
-
+using ECommerceApp3.Interfaces;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(ECommerceApp3.Droid.NetworkConnection))]
