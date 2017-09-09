@@ -3,8 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ECommerceApp3.Pages.CustomersPage">
 
-    <Label
-        HorizontalOptions="Center"
-        VerticalOptions="Center"
-        Text="Clientes"></Label>
+    <StackLayout>
+        <SearchBar
+            Placeholder="Buscar..."
+            Text="{Binding Filter, Mode=TwoWay}"
+            SearchCommand="{Binding SearchProductCommand}">
+        </SearchBar>
+
+        <ListView
+    ItemsSource="{Binding Products}"
+    HasUnevenRows="True">
+            <ListView.ItemTemplate>
+       
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackLayout>
+
 </ContentPage>

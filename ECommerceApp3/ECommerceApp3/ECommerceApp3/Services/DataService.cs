@@ -2,6 +2,7 @@
 using ECommerceApp3.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ECommerceApp3.Services
 {
@@ -95,7 +96,7 @@ namespace ECommerceApp3.Services
         {
             using (var da=new DataAccess())
             {
-                return da.GetList<Product>(true);
+                return da.GetList<Product>(true).OrderBy(p=>p.Description).ToList();
             }
         }
 
@@ -145,7 +146,11 @@ namespace ECommerceApp3.Services
         {
             using (var da=new DataAccess())
             {
-                return da.GetList<Product>(true);
+                return da.GetList<Product>(true).
+                    OrderBy(p=>p.Description).
+                    Where(p=>p.Description.ToUpper().
+                    Contains(filter.ToUpper()))
+                    .ToList();
             }
         }
     }

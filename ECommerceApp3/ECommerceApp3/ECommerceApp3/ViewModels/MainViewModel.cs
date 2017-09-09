@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,15 @@ using System.Windows.Input;
 
 namespace ECommerceApp3.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel:INotifyPropertyChanged
     {
         #region Attributes
         private DataService dataService;
         private ApiService apiService;
         private NetService netService;
+        private string filter;
+        //video 119 
+        
         #endregion
 
         #region Properties
@@ -27,7 +31,27 @@ namespace ECommerceApp3.ViewModels
         public LoginViewModel NewLogin { get; set; }
         public UserViewModel  UserLoged { get; set; }
 
-        public string Filter { get; set; }
+        public string Filter
+        {
+            set
+            {
+                if (filter != value)
+                {
+                    filter = value;
+
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Filter"));
+                    if (string.IsNullOrEmpty(filter)) {//video 120
+                        LoadLocalProduct();//local para no hacer tan pesado
+                    }
+                };
+            }
+            get
+            {
+                return filter;
+            }
+        }
+
+    
         #endregion
 
         #region Constructor
@@ -94,42 +118,20 @@ namespace ECommerceApp3.ViewModels
         }
         #endregion
 
+        #region Events
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
         #region Commands
         public ICommand SearchProductCommand { get {return new RelayCommand(SearchProduct); } }
 
         private void SearchProduct()
         {
-        
-
-         
                 var products = dataService.GetProducts(Filter);
-                dataService.SaveProducts(products);
-            
-          
+
             //aca preguntamos si hay coneccion ECommerce 117
 
-            Products.Clear();
-
-            foreach (var product in products)
-            {
-                Products.Add(new ProductItemViewModel
-                {
-                    BarCode = product.BarCode,
-                    Category = product.Category,
-                    CategoryId = product.CategoryId,
-                    Company = product.Company,
-                    CompanyId = product.CompanyId,
-                    Description = product.Description,
-                    Image = product.Image,
-                    Inventories = product.Inventories,
-                    Price = product.Price,
-                    ProductId = product.ProductId,
-                    Remarks = product.Remarks,
-                    Stock = product.Stock,
-                    Tax = product.Tax,
-                    TaxId = product.TaxId
-                });
-            }
+            ReloadPorducts(products);
         }
         #endregion
 
@@ -202,12 +204,24 @@ namespace ECommerceApp3.ViewModels
             
             //aca preguntamos si hay coneccion ECommerce 117
 
-            Products.Clear();
+            //120 ECCOMMERCE , para recargar products
+            ReloadPorducts(products);
+        }
 
+        private void LoadLocalProduct()
+        {
+            var products = dataService.GetProducts();
+            ReloadPorducts(products);
+        }
+
+        private void ReloadPorducts(List<Product> products)
+        {
+            Products.Clear();
             foreach (var product in products)
             {
-                Products.Add(new ProductItemViewModel {
-                    BarCode=product.BarCode,
+                Products.Add(new ProductItemViewModel
+                {
+                    BarCode = product.BarCode,
                     Category = product.Category,
                     CategoryId = product.CategoryId,
                     Company = product.Company,

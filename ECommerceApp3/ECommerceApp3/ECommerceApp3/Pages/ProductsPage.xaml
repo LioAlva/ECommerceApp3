@@ -15,10 +15,15 @@
         </SearchBar>
 
         <ListView
+            
     ItemsSource="{Binding Products}"
-    HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
+    HasUnevenRows="True"
+            ItemTemplate="{StaticResource ProductItemTemplate}">
+            
+            <!--<ListView.ItemTemplate>
+             aca el datasource que fue al diccionario.
+            </ListView.ItemTemplate>-->
+            <!--<DataTemplate>
                     <ViewCell>
                         <Grid Padding="8">
                             <Grid.ColumnDefinitions>
@@ -47,8 +52,7 @@
                             </StackLayout>
                         </Grid>
                     </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                </DataTemplate>-->
         </ListView>
 
     </StackLayout>
