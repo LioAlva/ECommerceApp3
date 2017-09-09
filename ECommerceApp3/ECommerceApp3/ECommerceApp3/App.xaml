@@ -7,8 +7,7 @@
 
         <!-- Application resource dictionary -->
         <ResourceDictionary>
-            <!--Locator-->
-            <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
+           
             <!--Color-->
             <Color x:Key="MainColor">#1b2b32</Color>
             <Color x:Key="FontColor">#e1e7e8</Color>
@@ -17,8 +16,11 @@
             <Color x:Key="BackgroundColor">#37646b</Color>
             <Color x:Key="AccentColor">#b22e22</Color>
             <Color x:Key="ComodinColor">#FFCC00</Color>
-            
-        <!-- Data Templates -->
+
+            <!--Locator-->
+            <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
+
+            <!-- Data Templates -->
             <DataTemplate x:Key="ProductItemTemplate">
                 <ViewCell>
                     <Grid Padding="8">
@@ -50,7 +52,40 @@
                 </ViewCell>
             </DataTemplate>
 
-
+            <DataTemplate x:Key="CustomerItemTemplate">
+                <ViewCell>
+                    <Grid Padding="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image
+                              Source="{Binding PhotoFullPath}"
+                              VerticalOptions="Start"
+                              WidthRequest="100"
+                              HeightRequest="100"/>
+                        <StackLayout Grid.Column="1">
+                            <Label
+                                FontAttributes="Bold"
+                                VerticalOptions="Center"
+                                TextColor="{StaticResource FontColor}"
+                                Text="{Binding  FullName}"/>
+                            <Label
+                                VerticalOptions="Center"
+                                TextColor="{StaticResource FontColor}"
+                                Text="{Binding UserName,StringFormat='Email: {0}'}"/>
+                            <Label
+                                VerticalOptions="Center"
+                                TextColor="{StaticResource FontColor}"
+                                Text="{Binding Address, StringFormat='Direccion: {0}'}"/>
+                            <Label
+                                VerticalOptions="Center"
+                                TextColor="{StaticResource FontColor}"
+                                Text="{Binding Phone, StringFormat='Telefono: {0}'}"/>
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

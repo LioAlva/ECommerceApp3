@@ -142,7 +142,46 @@ namespace ECommerceApp3.Services
            
         }
 
-         public List<Product> GetProducts(string filter)
+        public void SaveCustomers(List<Customer> customers)
+        {
+            using (var da = new DataAccess())
+            {
+                var oldCustomers = da.GetList<Customer>(false);
+                foreach (var customer in oldCustomers)
+                {
+                    da.Delete(customer);
+                }
+
+                foreach (var customer in customers)
+                {
+                    da.Insert(customer);
+                }
+            }
+        }
+
+        public List<Customer> GetCustomers(string filter)
+        {
+            using (var da = new DataAccess())
+            {
+                return da.GetList<Customer>(true).
+                    OrderBy(c => c.FirstName).
+                    ThenBy(c=>c.LastName).
+                    Where(c => c.FirstName.ToUpper().Contains(filter.ToUpper())
+                    || c.LastName.ToUpper().Contains(filter.ToUpper())
+                    )
+                    .ToList();
+            }
+        }
+
+        public List<Customer> GetCustomers()
+        {
+            using (var da = new DataAccess())
+            {
+                return da.GetList<Customer>(true).OrderBy(c => c.FirstName).ThenBy(c=>c.LastName).ToList();
+            }
+        }
+
+        public List<Product> GetProducts(string filter)
         {
             using (var da=new DataAccess())
             {

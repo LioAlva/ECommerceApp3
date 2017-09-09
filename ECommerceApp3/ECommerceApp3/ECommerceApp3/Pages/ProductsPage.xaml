@@ -10,14 +10,13 @@
     <StackLayout>
         <SearchBar
             Placeholder="Buscar..."
-            Text="{Binding Filter, Mode=TwoWay}"
+            Text="{Binding ProductsFilter, Mode=TwoWay}"
             SearchCommand="{Binding SearchProductCommand}">
         </SearchBar>
 
         <ListView
-            
-    ItemsSource="{Binding Products}"
-    HasUnevenRows="True"
+            ItemsSource="{Binding Products}"
+            HasUnevenRows="True"
             ItemTemplate="{StaticResource ProductItemTemplate}">
             
             <!--<ListView.ItemTemplate>
