@@ -3,10 +3,16 @@ using ECommerceApp3.Services;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
+
+
+using System.ComponentModel;
+
 
 namespace ECommerceApp3.ViewModels
 {
@@ -14,9 +20,16 @@ namespace ECommerceApp3.ViewModels
     {
         #region Attibutes
         private NavigationService navigationService;
+        private NetService netService;
+        private ApiService apiService;
+        private DataService dataService;
+
         #endregion
 
-       // public ObservableCollection<Department> { get; set; }
+        #region Properties
+        //propiedad para vindar separtamentos
+        public ObservableCollection<DepartmentItemViewModel> Departments { get; set; }
+        #endregion
 
         #region Commands
 
@@ -56,8 +69,55 @@ namespace ECommerceApp3.ViewModels
         #region Constructors
         public CustomerItemViewModel()
         {
+            //services
             navigationService = new NavigationService();
-        } 
+            netService = new NetService();
+            apiService = new ApiService();
+            dataService = new DataService();
+
+            //ObservableCollection
+            Departments = new ObservableCollection<DepartmentItemViewModel>();
+
+            //Carga de Datos
+            LoadDepartments();
+        }
+        #endregion
+
+        #region Methods
+        private async void LoadDepartments()
+        {
+            var departments = new List<Department>();
+
+            if (netService.IsConnected())
+            {//cuando hay conneccion lo guado los productos , 
+                departments = await apiService.Get<Department>("Departments");
+                dataService.Save<Department>(departments);
+            }
+            else
+            {//cuando no  hay connecion jalomos de la BD local
+                departments = dataService.Get<Department>(true);
+            }
+            //aca preguntamos si hay coneccion ECommerce 117
+
+            //120 ECCOMMERCE , para recargar products
+            ReloadDepartments(departments);
+        }
+
+
+        private void ReloadDepartments(List<Department> departments)
+        {
+            Departments.Clear();
+            foreach (var department in departments.OrderBy(d => d.Name))
+            {
+                Departments.Add(new DepartmentItemViewModel
+                {
+                    Cities = department.Cities,
+                    Customers = department.Customers,
+                    DepartmentId = department.DepartmentId,
+                    Name = department.Name,
+                });
+            }
+        }
         #endregion
     }
 }

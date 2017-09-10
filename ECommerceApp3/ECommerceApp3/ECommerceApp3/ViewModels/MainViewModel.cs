@@ -153,7 +153,7 @@ namespace ECommerceApp3.ViewModels
 
             //aca preguntamos si hay coneccion ECommerce 117
 
-            ReloadPorducts(products);
+            ReloadProducts(products);
         }
 
         public ICommand SearchCustomerCommand { get { return new RelayCommand(SearchCustomer); } }
@@ -305,14 +305,14 @@ namespace ECommerceApp3.ViewModels
             //aca preguntamos si hay coneccion ECommerce 117
 
             //120 ECCOMMERCE , para recargar products
-            ReloadPorducts(products);
+            ReloadProducts(products);
         }
 
 
         private void LoadLocalProduct()
         {
             var products = dataService.Get<Product>(true);
-            ReloadPorducts(products);
+            ReloadProducts(products);
         }
 
         private void LoadLocalCustomers()
@@ -322,7 +322,7 @@ namespace ECommerceApp3.ViewModels
         }
 
 
-        private void ReloadPorducts(List<Product> products)
+        private void ReloadProducts(List<Product> products)
         {
             Products.Clear();
             foreach (var product in products.OrderBy(p=>p.Description))
