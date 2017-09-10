@@ -18,13 +18,16 @@
             <Color x:Key="AccentColor">#b22e22</Color>
             <Color x:Key="ComodinColor">#FFCC00</Color>
 
+            <Color x:Key="RedColor">#D97925</Color>
+            <Color x:Key="OrangeColor">#AB1A25</Color>
+
             <!--Locator-->
             <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
 
             <!-- Data Templates -->
             <DataTemplate x:Key="ProductItemTemplate">
                 <ViewCell>
-                    <Grid Padding="8">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -55,7 +58,10 @@
 
             <DataTemplate x:Key="CustomerItemTemplate">
                 <ViewCell>
-                    <Grid Padding="8">
+                    <Grid>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CustomerDetailCommand}"/>
+                        </Grid.GestureRecognizers>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>

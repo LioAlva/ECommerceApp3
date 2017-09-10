@@ -45,6 +45,9 @@ namespace ECommerceApp3.Services
                 case "UserPage":
                     await App.Navigator.PushAsync(new UserPage());
                     ; break;
+                case "CustomerDetailPage":
+                    await App.Navigator.PushAsync(new CustomerDetailPage());
+                    ; break;
                 case "LogutPage":
                     Logout();
                     ; break;

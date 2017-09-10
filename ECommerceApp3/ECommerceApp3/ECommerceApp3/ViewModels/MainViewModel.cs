@@ -34,6 +34,8 @@ namespace ECommerceApp3.ViewModels
 
         public LoginViewModel NewLogin { get; set; }
         public UserViewModel  UserLoged { get; set; }
+        public CustomerItemViewModel CurrentCustomer { get; set; }
+        
 
         public string ProductsFilter
         {
@@ -93,6 +95,7 @@ namespace ECommerceApp3.ViewModels
             //Create Views
             NewLogin = new LoginViewModel();
             UserLoged = new UserViewModel();
+            CurrentCustomer = new CustomerItemViewModel();
 
             //Instance services
             dataService = new DataService();
@@ -138,6 +141,9 @@ namespace ECommerceApp3.ViewModels
         #endregion
 
         #region Commands
+
+       
+
         public ICommand SearchProductCommand { get {return new RelayCommand(SearchProduct); } }
 
 
@@ -164,6 +170,13 @@ namespace ECommerceApp3.ViewModels
         #endregion
 
         #region Methods
+        public void SetCurrentCustomer(CustomerItemViewModel customerItemViewModel)
+        {
+            CurrentCustomer = customerItemViewModel;
+        }
+
+
+
         private async void LoadCustomers()
         {
             var customers = new List<Customer>();
