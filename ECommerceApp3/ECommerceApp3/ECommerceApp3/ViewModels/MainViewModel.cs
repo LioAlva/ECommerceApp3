@@ -47,7 +47,7 @@ namespace ECommerceApp3.ViewModels
                     if (string.IsNullOrEmpty(productsfilter)) {//video 120
                         LoadLocalProduct();//local para no hacer tan pesado
                     }
-                };
+                }
             }
             get
             {
@@ -68,7 +68,7 @@ namespace ECommerceApp3.ViewModels
                     {//video 120
                         LoadLocalCustomers();//local para no hacer tan pesado
                     }
-                };
+                }
             }
             get
             {
@@ -170,12 +170,12 @@ namespace ECommerceApp3.ViewModels
 
             if (netService.IsConnected())
             {//cuando hay conneccion lo guado los productos , 
-                customers = await apiService.GetCustomers();
-                dataService.SaveCustomers(customers);
+                customers = await apiService.Get<Customer>("Customers");
+                dataService.Save<Customer>(customers);
             }
             else
             {//cuando no  hay connecion jalomos de la BD local
-                customers = dataService.GetCustomers();
+                customers = dataService.Get<Customer>(true);
             }
 
             //aca preguntamos si hay coneccion ECommerce 117
@@ -187,7 +187,7 @@ namespace ECommerceApp3.ViewModels
         private void ReloadCustomers(List<Customer> customers)
         {
             Customers.Clear();
-            foreach (var customer in customers)
+            foreach (var customer in customers.OrderBy(c=>c.FirstName).ThenBy(c=>c.LastName))
             {
                 Customers.Add(new CustomerItemViewModel
                 {
@@ -196,12 +196,14 @@ namespace ECommerceApp3.ViewModels
                     CityId = customer.CityId,
                     CompanyCustomers = customer.CompanyCustomers,
                     CustomerId = customer.CustomerId,
+                    Department=customer.Department,
                     DepartmentId = customer.DepartmentId,
                     FirstName = customer.FirstName,
                     IsUpdated = customer.IsUpdated,
                     LastName = customer.LastName,
                     Latitude = customer.Latitude,
                     Longitude = customer.Longitude,
+                    Orders=customer.Orders,
                     Phone = customer.Phone,
                     Photo = customer.Photo,
                     Sales = customer.Sales,
@@ -279,12 +281,12 @@ namespace ECommerceApp3.ViewModels
 
             if (netService.IsConnected())
             {//cuando hay conneccion lo guado los productos , 
-                products = await apiService.GetProducts();
-                dataService.SaveProducts(products);
+                products = await apiService.Get<Product>("Products");
+                dataService.Save<Product>(products);
             }
             else
             {//cuando no  hay connecion jalomos de la BD local
-                products = dataService.GetProducts();
+                products = dataService.Get<Product>(true);
             }
 
             //aca preguntamos si hay coneccion ECommerce 117
@@ -296,13 +298,13 @@ namespace ECommerceApp3.ViewModels
 
         private void LoadLocalProduct()
         {
-            var products = dataService.GetProducts();
+            var products = dataService.Get<Product>(true);
             ReloadPorducts(products);
         }
 
         private void LoadLocalCustomers()
         {
-            var customers = dataService.GetCustomers();
+            var customers = dataService.Get<Customer>(true);
             ReloadCustomers(customers);
         }
 
@@ -310,7 +312,7 @@ namespace ECommerceApp3.ViewModels
         private void ReloadPorducts(List<Product> products)
         {
             Products.Clear();
-            foreach (var product in products)
+            foreach (var product in products.OrderBy(p=>p.Description))
             {
                 Products.Add(new ProductItemViewModel
                 {

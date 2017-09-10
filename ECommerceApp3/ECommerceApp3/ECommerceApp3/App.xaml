@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              xmlns:infra="clr-namespace:ECommerceApp3.Infrastructure;assembly=ECommerceApp3"
              x:Class="ECommerceApp3.App">
     <Application.Resources>
@@ -59,11 +60,14 @@
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Image
-                              Source="{Binding PhotoFullPath}"
-                              VerticalOptions="Start"
-                              WidthRequest="100"
-                              HeightRequest="100"/>
+                        
+                        <controls:CircleImage
+                            Source="{Binding PhotoFullPath}"
+                            Aspect="AspectFill"
+                            HeightRequest="100"
+                            WidthRequest="100"
+                            ></controls:CircleImage>
+                        
                         <StackLayout Grid.Column="1">
                             <Label
                                 FontAttributes="Bold"

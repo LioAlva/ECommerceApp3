@@ -75,30 +75,30 @@ namespace ECommerceApp3.Services
                 }
             }
 
-        public void SaveProducts(List<Product> products)
-        {
-            using (var da=new DataAccess())
-            {
-                var oldProducts = da.GetList<Product>(false);
-                foreach (var  product  in oldProducts)
-                {
-                    da.Delete(product);
-                }
+        //public void SaveProducts(List<Product> products)
+        //{
+        //    using (var da=new DataAccess())
+        //    {
+        //        var oldProducts = da.GetList<Product>(false);
+        //        foreach (var  product  in oldProducts)
+        //        {
+        //            da.Delete(product);
+        //        }
 
-                foreach (var product in products)
-                {
-                    da.Insert(product);
-                }
-            }
-        }
+        //        foreach (var product in products)
+        //        {
+        //            da.Insert(product);
+        //        }
+        //    }
+        //}
 
-        public List<Product> GetProducts()
-        {
-            using (var da=new DataAccess())
-            {
-                return da.GetList<Product>(true).OrderBy(p=>p.Description).ToList();
-            }
-        }
+        //public List<Product> GetProducts()
+        //{
+        //    using (var da=new DataAccess())
+        //    {
+        //        return da.GetList<Product>(true).OrderBy(p=>p.Description).ToList();
+        //    }
+        //}
 
          public Response Login(string email, string password)
         {
@@ -142,19 +142,19 @@ namespace ECommerceApp3.Services
            
         }
 
-        public void SaveCustomers(List<Customer> customers)
+        public void Save<T>(List<T> list) where T:class
         {
             using (var da = new DataAccess())
             {
-                var oldCustomers = da.GetList<Customer>(false);
-                foreach (var customer in oldCustomers)
+                var oldRecords = da.GetList<T>(false);
+                foreach (var record in oldRecords)
                 {
-                    da.Delete(customer);
+                    da.Delete(record);
                 }
 
-                foreach (var customer in customers)
+                foreach (var record in list)
                 {
-                    da.Insert(customer);
+                    da.Insert(record);
                 }
             }
         }
@@ -167,27 +167,39 @@ namespace ECommerceApp3.Services
                     OrderBy(c => c.FirstName).
                     ThenBy(c=>c.LastName).
                     Where(c => c.FirstName.ToUpper().Contains(filter.ToUpper())
-                    || c.LastName.ToUpper().Contains(filter.ToUpper())
+                    ||         c.LastName.ToUpper().Contains(filter.ToUpper())
                     )
                     .ToList();
             }
         }
 
-        public List<Customer> GetCustomers()
-        {
-            using (var da = new DataAccess())
+        //public List<Customer> GetCustomers()
+        //{
+        //    using (var da = new DataAccess())
+        //    {
+        //        return da.GetList<Customer>(true).
+        //            OrderBy(c => c.FirstName).
+        //            ThenBy(c=>c.LastName).
+        //            ToList();
+        //    }
+        //}
+
+        public List<T> Get<T>(bool widthChildren)  where T:class{
+            using (var da=new DataAccess())
             {
-                return da.GetList<Customer>(true).OrderBy(c => c.FirstName).ThenBy(c=>c.LastName).ToList();
+                return da.GetList<T>(widthChildren).ToList();
             }
         }
 
+
+
         public List<Product> GetProducts(string filter)
         {
-            using (var da=new DataAccess())
+            using (var da = new DataAccess())
             {
                 return da.GetList<Product>(true).
-                    OrderBy(p=>p.Description).
-                    Where(p=>p.Description.ToUpper().
+                    OrderBy(p => p.Description).
+                    Where(p => p.Description.ToUpper().
                     Contains(filter.ToUpper()))
                     .ToList();
             }

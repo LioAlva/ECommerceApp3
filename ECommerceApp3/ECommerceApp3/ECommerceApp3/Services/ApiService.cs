@@ -57,14 +57,69 @@ namespace ECommerceApp3.Services
             }
         }
 
-        public async Task<List<Product>> GetProducts()
+        //public async Task<List<Product>> GetProducts()
+        //{
+        //    try
+        //    {
+        //        var client = new HttpClient()
+        //        {
+        //            BaseAddress = new Uri("http://zulu-software.com")
+        //        };
+        //        //client.BaseAddress = new Uri("http://luisperseo-001-site1.itempurl.com");
+        //        var url = "/ECommerce/api/Products";
+        //        var response = await client.GetAsync(url);
+
+        //        if (!response.IsSuccessStatusCode)
+        //        {
+        //            return null;
+        //        }
+
+        //        var result = await response.Content.ReadAsStringAsync();
+        //        var products = JsonConvert.DeserializeObject<List<Product>>(result);
+        //        return products.OrderBy(p=>p.Description).ToList();
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        //public async Task<List<Customer>> GetCustomers()
+        //{
+        //    try
+        //    {
+        //        var client = new HttpClient();
+        //        client.BaseAddress = new Uri("http://zulu-software.com");
+        //        //client.BaseAddress = new Uri("http://luisperseo-001-site1.itempurl.com");
+        //        var url = "/ECommerce/api/Customers";
+        //        var response = await client.GetAsync(url);
+
+        //        if (!response.IsSuccessStatusCode)
+        //        {
+        //            return null;
+        //        }
+
+        //        var result = await response.Content.ReadAsStringAsync();
+        //        var customers = JsonConvert.DeserializeObject<List<Customer>>(result);
+        //        return customers.OrderBy(c => c.FirstName)
+        //            .ThenBy(c=>c.LastName)//primero ordena por firsname luego por lasname
+        //            .ToList();
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
+
+
+        public async Task<List<T>> Get<T>(string controller) where T:class 
         {
             try
             {
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("http://zulu-software.com");
                 //client.BaseAddress = new Uri("http://luisperseo-001-site1.itempurl.com");
-                var url = "/ECommerce/api/Products";
+                var url =string.Format("/ECommerce/api/{0}",controller);
                 var response = await client.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)
@@ -73,8 +128,8 @@ namespace ECommerceApp3.Services
                 }
 
                 var result = await response.Content.ReadAsStringAsync();
-                var products = JsonConvert.DeserializeObject<List<Product>>(result);
-                return products.OrderBy(p=>p.Description).ToList();
+                var lista = JsonConvert.DeserializeObject<List<T>>(result);
+                return lista;
             }
             catch
             {
@@ -82,31 +137,6 @@ namespace ECommerceApp3.Services
             }
         }
 
-        public async Task<List<Customer>> GetCustomers()
-        {
-            try
-            {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri("http://zulu-software.com");
-                //client.BaseAddress = new Uri("http://luisperseo-001-site1.itempurl.com");
-                var url = "/ECommerce/api/Customers";
-                var response = await client.GetAsync(url);
 
-                if (!response.IsSuccessStatusCode)
-                {
-                    return null;
-                }
-
-                var result = await response.Content.ReadAsStringAsync();
-                var customers = JsonConvert.DeserializeObject<List<Customer>>(result);
-                return customers.OrderBy(c => c.FirstName)
-                    .ThenBy(c=>c.LastName)//primero ordena por firsname luego por lasname
-                    .ToList();
-            }
-            catch
-            {
-                return null;
-            }
-        }
     }
 }
