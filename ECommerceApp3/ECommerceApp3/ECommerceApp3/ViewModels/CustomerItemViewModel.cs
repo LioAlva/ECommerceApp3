@@ -29,6 +29,8 @@ namespace ECommerceApp3.ViewModels
         #region Properties
         //propiedad para vindar separtamentos
         public ObservableCollection<DepartmentItemViewModel> Departments { get; set; }
+
+        public ObservableCollection<CityItemViewModel> Cities { get; set; }
         #endregion
 
         #region Commands
@@ -77,6 +79,7 @@ namespace ECommerceApp3.ViewModels
 
             //ObservableCollection
             Departments = new ObservableCollection<DepartmentItemViewModel>();
+            Cities = new ObservableCollection<CityItemViewModel>();
 
             //Carga de Datos
             LoadDepartments();
