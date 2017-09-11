@@ -176,38 +176,17 @@ namespace ECommerceApp3.ViewModels
 
         #region Methods
 
-        public void GetGeolocation()
+        public void SetGeolocation(string name,string address,double latitude,double longitude)
         {
-            var position1 = new Position(6.2652880, -75.5098530);
-            var pin1 = new Pin
+            var position = new Position(latitude,longitude);
+            var pin = new Pin
             {
                 Type = PinType.Place,
-                Position = position1,
-                Label = "Pin1",
-                Address = "prueba pin1"
+                Position = position,
+                Label = name,
+                Address = address
             };
-            Pins.Add(pin1);
-
-            var position2 = new Position(6.2652880, -75.4598530);
-            var pin2 = new Pin
-            {
-                Type = PinType.Place,
-                Position = position2,
-                Label = "Pin2",
-                Address = "prueba pin2"
-            };
-            Pins.Add(pin2);
-
-            var position3 = new Position(6.2652880, -75.4898530);
-            var pin3 = new Pin
-            {
-                Type = PinType.Place,
-                Position = position3,
-                Label = "Pin3",
-                Address = "prueba pin3"
-            };
-            Pins.Add(pin3);
-
+            Pins.Add(pin);
         }
 
 

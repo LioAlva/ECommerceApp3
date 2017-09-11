@@ -16,7 +16,11 @@ namespace ECommerceApp3.Pages
         {
             InitializeComponent();
             var mainViewModel = MainViewModel.GetInstance();
-            mainViewModel.GetGeolocation();
+            mainViewModel.SetGeolocation(
+                mainViewModel.CurrentCustomer.FullName,
+                mainViewModel.CurrentCustomer.Address,
+                mainViewModel.CurrentCustomer.Latitude,
+                mainViewModel.CurrentCustomer.Longitude);
             foreach (Pin item in mainViewModel.Pins)
             {
                 MyMap.Pins.Add(item);
