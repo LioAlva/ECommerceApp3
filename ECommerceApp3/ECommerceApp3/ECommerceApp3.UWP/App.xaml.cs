@@ -59,6 +59,8 @@ namespace ECommerceApp3.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e);
+                //aca es para instanciar lo que es mapas.
+                Xamarin.FormsMaps.Init("AIzaSyDfTRKtk3gAakME5GbhPdxBNpIn-xY9iIg");
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

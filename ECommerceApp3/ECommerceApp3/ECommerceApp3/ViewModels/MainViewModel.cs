@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms.Maps;
 
 namespace ECommerceApp3.ViewModels
 {
@@ -18,6 +19,7 @@ namespace ECommerceApp3.ViewModels
         private DataService dataService;
         private ApiService apiService;
         private NetService netService;
+
         private string productsfilter;
         private string customersfilter;
 
@@ -31,6 +33,8 @@ namespace ECommerceApp3.ViewModels
         public ObservableCollection<ProductItemViewModel> Products { get; set; }
 
         public ObservableCollection<CustomerItemViewModel> Customers { get; set; }
+        //esto es xamarin maps
+        public ObservableCollection<Pin> Pins { get; set; }
 
         public LoginViewModel NewLogin { get; set; }
         public UserViewModel  UserLoged { get; set; }
@@ -96,6 +100,7 @@ namespace ECommerceApp3.ViewModels
             NewLogin = new LoginViewModel();
             UserLoged = new UserViewModel();
             CurrentCustomer = new CustomerItemViewModel();
+            Pins = new ObservableCollection<Pin>();
 
             //Instance services
             dataService = new DataService();
@@ -170,6 +175,42 @@ namespace ECommerceApp3.ViewModels
         #endregion
 
         #region Methods
+
+        public void GetGeolocation()
+        {
+            var position1 = new Position(6.2652880, -75.5098530);
+            var pin1 = new Pin
+            {
+                Type = PinType.Place,
+                Position = position1,
+                Label = "Pin1",
+                Address = "prueba pin1"
+            };
+            Pins.Add(pin1);
+
+            var position2 = new Position(6.2652880, -75.4598530);
+            var pin2 = new Pin
+            {
+                Type = PinType.Place,
+                Position = position2,
+                Label = "Pin2",
+                Address = "prueba pin2"
+            };
+            Pins.Add(pin2);
+
+            var position3 = new Position(6.2652880, -75.4898530);
+            var pin3 = new Pin
+            {
+                Type = PinType.Place,
+                Position = position3,
+                Label = "Pin3",
+                Address = "prueba pin3"
+            };
+            Pins.Add(pin3);
+
+        }
+
+
         public void SetCurrentCustomer(CustomerItemViewModel customerItemViewModel)
         {
             CurrentCustomer = customerItemViewModel;

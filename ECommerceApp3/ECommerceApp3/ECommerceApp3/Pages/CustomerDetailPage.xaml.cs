@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
+
+using ECommerceApp3.ViewModels;
+using Plugin.Geolocator;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace ECommerceApp3.Pages
@@ -15,6 +15,25 @@ namespace ECommerceApp3.Pages
         public CustomerDetailPage()
         {
             InitializeComponent();
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.GetGeolocation();
+            foreach (Pin item in mainViewModel.Pins)
+            {
+                MyMap.Pins.Add(item);
+            }
+            Locator();
+        }
+
+        private async void Locator()
+        {
+            var locator = CrossGeolocator.Current;
+            locator.DesiredAccuracy = 50;
+
+            //var location = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
+            var location = await locator.GetPositionAsync();
+            var position = new Position(location.Latitude, location.Longitude);
+            MyMap.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMiles(.3)));
+
         }
     }
 }

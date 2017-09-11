@@ -25,7 +25,7 @@ namespace ECommerceApp3.iOS
             global::Xamarin.Forms.Forms.Init();
             //aca se pone para iniciar el tema de mapas.
             Xamarin.FormsMaps.Init();
-            LoadApplication(new App());
+           // LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
         }
