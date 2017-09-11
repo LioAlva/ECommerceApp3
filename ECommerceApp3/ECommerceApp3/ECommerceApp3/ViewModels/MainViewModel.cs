@@ -146,8 +146,13 @@ namespace ECommerceApp3.ViewModels
         #endregion
 
         #region Commands
+ 
+        public ICommand NewCustomerCommand{ get { return new RelayCommand(NewCustomer); } }
 
-       
+        private void NewCustomer()
+        {
+
+        }
 
         public ICommand SearchProductCommand { get {return new RelayCommand(SearchProduct); } }
 

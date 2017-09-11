@@ -5,6 +5,8 @@
              Title="Pedidos"
              BackgroundColor="{StaticResource BackgroundColor}"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             
+             
              >
     <Label
         Text="Orders Page"

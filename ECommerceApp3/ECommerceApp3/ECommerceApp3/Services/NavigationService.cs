@@ -23,7 +23,9 @@ namespace ECommerceApp3.Services
             App.Master.IsPresented = false;
             switch (pageName)
             {
-                
+                case "NewCustomerPage":
+                    await App.Navigator.PushAsync(new NewCustomerPage());
+                    ; break;
                 case "CustomersPage":
                     await App.Navigator.PushAsync(new CustomersPage());
                     ; break;

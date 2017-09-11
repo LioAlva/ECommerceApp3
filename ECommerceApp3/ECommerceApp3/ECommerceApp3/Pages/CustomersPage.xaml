@@ -18,4 +18,10 @@
             HasUnevenRows="True">
         </ListView>
     </StackLayout>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="ic_action_image_loupe.png"
+                     Command="{Binding NewCustomerCommand}"
+                     />
+    </ContentPage.ToolbarItems>
+
 </ContentPage>
