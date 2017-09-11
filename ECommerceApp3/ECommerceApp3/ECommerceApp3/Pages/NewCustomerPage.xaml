@@ -14,7 +14,7 @@
         <StackLayout
       Padding="8">
             <controls:CircleImage
-          Source="{Binding PhotoFullPath}"
+          Source="{Binding ImageSource}"
           Aspect="AspectFill"
           WidthRequest="100"
           HeightRequest="100"
