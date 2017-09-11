@@ -19,6 +19,7 @@ namespace ECommerceApp3.ViewModels
         private DataService dataService;
         private ApiService apiService;
         private NetService netService;
+        private NavigationService navigationService;
 
         private string productsfilter;
         private string customersfilter;
@@ -39,7 +40,8 @@ namespace ECommerceApp3.ViewModels
         public LoginViewModel NewLogin { get; set; }
         public UserViewModel  UserLoged { get; set; }
         public CustomerItemViewModel CurrentCustomer { get; set; }
-        
+
+        public CustomerItemViewModel NewCustomer { get; set; }
 
         public string ProductsFilter
         {
@@ -95,12 +97,14 @@ namespace ECommerceApp3.ViewModels
             Products = new ObservableCollection<ProductItemViewModel>();
             //customers
             Customers = new ObservableCollection<CustomerItemViewModel>();
+            Pins = new ObservableCollection<Pin>();
+
 
             //Create Views
             NewLogin = new LoginViewModel();
             UserLoged = new UserViewModel();
             CurrentCustomer = new CustomerItemViewModel();
-            Pins = new ObservableCollection<Pin>();
+            NewCustomer = new CustomerItemViewModel();
 
             //Instance services
             dataService = new DataService();
@@ -110,6 +114,9 @@ namespace ECommerceApp3.ViewModels
 
             //esto es para networking 117 ecommerce
             netService = new NetService();
+
+            //navigation service
+            navigationService = new NavigationService();
 
             //Load Data
             LoadMenu();
@@ -147,11 +154,11 @@ namespace ECommerceApp3.ViewModels
 
         #region Commands
  
-        public ICommand NewCustomerCommand{ get { return new RelayCommand(NewCustomer); } }
+        public ICommand NewCustomerCommand{ get { return new RelayCommand(CustomerNew); } }
 
-        private void NewCustomer()
+        private  async void CustomerNew()
         {
-
+            await navigationService.Navigate("NewCustomerPage");
         }
 
         public ICommand SearchProductCommand { get {return new RelayCommand(SearchProduct); } }
@@ -167,6 +174,8 @@ namespace ECommerceApp3.ViewModels
         }
 
         public ICommand SearchCustomerCommand { get { return new RelayCommand(SearchCustomer); } }
+
+      
 
         private void SearchCustomer()
         {

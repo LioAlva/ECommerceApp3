@@ -168,37 +168,24 @@
             <StackLayout
         Orientation="Horizontal">
                 <Button
-          Text="Localización"
+          Text="Guardar"
+          Command="NewCustomerCommand"
           TextColor="{StaticResource BackgroundColor}"
           BackgroundColor="{StaticResource MainColor}"
           VerticalOptions="Center"
           HorizontalOptions="FillAndExpand">
                 </Button>
                 <Button
-          Text="Actualizar"
+          Text="Tomar Foto"
+          Command="{Binding TakePictureCommand}"
           TextColor="{StaticResource BackgroundColor}"
           BackgroundColor="{StaticResource OrangeColor}"
           VerticalOptions="Center"
           HorizontalOptions="FillAndExpand">
                 </Button>
-                <Button
-          Command="{Binding DeleteCustomerCommand}"
-          Text="Borrar"
-          TextColor="{StaticResource BackgroundColor}"
-          BackgroundColor="{StaticResource RedColor}"
-          VerticalOptions="Center"
-          HorizontalOptions="FillAndExpand">
-                </Button>
+               
             </StackLayout>
-            <!--Esto es par el mapa-->
-            <maps:Map 
-                WidthRequest="320" 
-                HeightRequest="400"
-                x:Name="MyMap"
-                IsShowingUser="true"
-                MapType="Hybrid">
-            </maps:Map>
-
+           
         </StackLayout>
 
     </ScrollView>

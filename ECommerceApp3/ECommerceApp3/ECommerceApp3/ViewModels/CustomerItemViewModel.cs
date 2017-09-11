@@ -12,18 +12,26 @@ using System.Windows.Input;
 
 
 using System.ComponentModel;
-
+using Xamarin.Forms;
+using Plugin.Media;
 
 namespace ECommerceApp3.ViewModels
 {
-    public class CustomerItemViewModel:Customer
+    public class CustomerItemViewModel:Customer,INotifyPropertyChanged //esto es para que en tiempo de ejecucion la foto se de cuenta cn eentos
     {
         #region Attibutes
         private NavigationService navigationService;
         private NetService netService;
         private ApiService apiService;
         private DataService dataService;
+        private DialogService dialogService;
+        //ECOMERCE 134
+        private ImageSource imageSource;//XAMARIN FORMS
+        #endregion
 
+        //tiene que ver con el refresque de la foto
+        #region Events
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Properties
@@ -31,11 +39,59 @@ namespace ECommerceApp3.ViewModels
         public ObservableCollection<DepartmentItemViewModel> Departments { get; set; }
 
         public ObservableCollection<CityItemViewModel> Cities { get; set; }
+
+        public ImageSource ImageSource
+        {
+            set
+            {
+                if (imageSource != value)
+                {
+                    imageSource = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ImageSource"));
+                }
+            }
+            get
+            {
+                return imageSource;
+            }
+        }
+
         #endregion
 
         #region Commands
 
+        public ICommand TakePictureCommand { get { return new RelayCommand(TakePicture); } }
+
         public ICommand CustomerDetailCommand { get { return new RelayCommand(CustomerDetail); } }
+
+        private async void TakePicture()
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+            {
+                await dialogService.ShowMessage("Error","no se puede acceder a la camara");
+                return;
+            }
+
+            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+            {
+                Directory = "Photos",
+                Name = "NewCustomer.jpg"
+            });
+
+            if (file != null)
+            {
+                ImageSource = ImageSource.FromStream(() =>
+                {
+                    var stream = file.GetStream();
+                    file.Dispose();
+                    return stream;
+                });
+            }
+
+        }
+
 
         private async void CustomerDetail()
         {
@@ -76,6 +132,8 @@ namespace ECommerceApp3.ViewModels
             netService = new NetService();
             apiService = new ApiService();
             dataService = new DataService();
+            //ecommerce 134
+            dialogService = new DialogService();
 
             //ObservableCollection
             Departments = new ObservableCollection<DepartmentItemViewModel>();
