@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Plugin.Media;
+using ECommerceApp3.Classes;
 
 namespace ECommerceApp3.ViewModels
 {
@@ -25,6 +26,7 @@ namespace ECommerceApp3.ViewModels
         private ApiService apiService;
         private DataService dataService;
         private DialogService dialogService;
+        private bool isRunning;
         //ECOMERCE 134
         private ImageSource imageSource;//XAMARIN FORMS
         #endregion
@@ -56,16 +58,82 @@ namespace ECommerceApp3.ViewModels
             }
         }
 
+        public bool IsRunning
+        {
+            set
+            {
+                if (isRunning != value)
+                {
+                    isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsRunning"));
+                }
+            }
+            get
+            {
+                return isRunning;
+            }
+        }
+
         #endregion
 
         #region Commands
+
+
+        public ICommand NewCustomerCommand { get { return new RelayCommand(NewCustomer); } }
 
         public ICommand TakePictureCommand { get { return new RelayCommand(TakePicture); } }
 
         public ICommand CustomerDetailCommand { get { return new RelayCommand(CustomerDetail); } }
 
+        private async void NewCustomer()
+        {
+            if (!Utilities.IsValidEmail(UserName))
+            {
+                await dialogService.ShowMessage("Error", "Debe ingresar un Email  valido");
+                return;
+            }
+            if (string.IsNullOrEmpty(FirstName))
+            {
+                await dialogService.ShowMessage("Error","Debe ingresar nombre");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(LastName))
+            {
+                await dialogService.ShowMessage("Error", "Debe ingresar Apellidos");
+                return;
+            }
+            if (string.IsNullOrEmpty(Phone))
+            {
+                await dialogService.ShowMessage("Error", "Debe ingresar un telefono");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Address))
+            {
+                await dialogService.ShowMessage("Error", "Debe ingresar una direccion");
+                return;
+            }
+
+            if (DepartmentId==0)
+            {
+                await dialogService.ShowMessage("Error", "Debe seleccionar un departamento");
+                return;
+            }
+
+            if (CityId== 0)
+            {
+                await dialogService.ShowMessage("Error", "Debe seleccionar una ciudad");
+                return;
+            }
+
+
+
+        }
+
         private async void TakePicture()
         {
+            isRunning = true;
             await CrossMedia.Current.Initialize();
 
             if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
@@ -89,9 +157,8 @@ namespace ECommerceApp3.ViewModels
                     return stream;
                 });
             }
-
+            isRunning = false;
         }
-
 
         private async void CustomerDetail()
         {
