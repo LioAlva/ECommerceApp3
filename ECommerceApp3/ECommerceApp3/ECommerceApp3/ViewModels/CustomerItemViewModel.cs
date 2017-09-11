@@ -83,10 +83,46 @@ namespace ECommerceApp3.ViewModels
 
             //Carga de Datos
             LoadDepartments();
+            LoadCities();
         }
         #endregion
 
         #region Methods
+        private async void LoadCities()
+        {
+            var cities = new List<City>();
+
+            if (netService.IsConnected())
+            {//cuando hay conneccion lo guado los productos , 
+                cities = await apiService.Get<City>("Cities");
+                dataService.Save<City>(cities);
+            }
+            else
+            {//cuando no  hay connecion jalomos de la BD local
+                cities = dataService.Get<City>(true);
+            }
+            //aca preguntamos si hay coneccion ECommerce 117
+
+            //120 ECCOMMERCE , para recargar products
+            ReloadCities(cities);
+        }
+
+        private void ReloadCities(List<City> cities)
+        {
+            Cities.Clear();
+            foreach (var city in cities.OrderBy(d => d.Name))
+            {
+                Cities.Add(new CityItemViewModel
+                {
+                    CityId=city.CityId,
+                    Customers=city.Customers,
+                    Department =city.Department,
+                    DepartmentId=city.DepartmentId,
+                    Name=city.Name
+                });
+            }
+        }
+
         private async void LoadDepartments()
         {
             var departments = new List<Department>();
