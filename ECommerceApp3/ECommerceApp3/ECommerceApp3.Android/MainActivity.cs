@@ -20,6 +20,9 @@ namespace ECommerceApp3.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            //para andriod nos active el tema de mapas nos actualice.
+            Xamarin.FormsMaps.Init(this, bundle);
+
             LoadApplication(new App());
         }
     }

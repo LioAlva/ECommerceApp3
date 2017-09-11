@@ -23,6 +23,8 @@ namespace ECommerceApp3.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            //aca se pone para iniciar el tema de mapas.
+            Xamarin.FormsMaps.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
