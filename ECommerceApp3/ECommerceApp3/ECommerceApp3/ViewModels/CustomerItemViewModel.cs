@@ -121,6 +121,7 @@ namespace ECommerceApp3.ViewModels
                     Name=city.Name
                 });
             }
+
         }
 
         private async void LoadDepartments()
