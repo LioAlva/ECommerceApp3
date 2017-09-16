@@ -101,6 +101,7 @@
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Services\GelocatorService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\NetService.cs" />
     <Compile Include="ViewModels\CityItemViewModel.cs" />

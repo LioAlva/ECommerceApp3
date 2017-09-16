@@ -26,6 +26,7 @@ namespace ECommerceApp3.ViewModels
         private ApiService apiService;
         private DataService dataService;
         private DialogService dialogService;
+        private GelocatorService gelocatorService;
         private bool isRunning;
         //ECOMERCE 134
         private ImageSource imageSource;//XAMARIN FORMS
@@ -78,7 +79,6 @@ namespace ECommerceApp3.ViewModels
 
         #region Commands
 
-
         public ICommand NewCustomerCommand { get { return new RelayCommand(NewCustomer); } }
 
         public ICommand TakePictureCommand { get { return new RelayCommand(TakePicture); } }
@@ -127,8 +127,26 @@ namespace ECommerceApp3.ViewModels
                 return;
             }
 
+            IsRunning = true;
+            await gelocatorService.GetLocation();
+            //aca que 
+            var customer = new Customer()
+            {
+                Address=Address,
+                CityId=CityId,
+                DepartmentId=DepartmentId,
+                FirstName=FirstName,
+                LastName=LastName,
+                IsUpdated=true,
+                //para mandar mandar latitud y longitud
+                Latitude = gelocatorService.Latitud,
+                Longitude = gelocatorService.Longitude,
+                Photo=Phone,
+                UserName=UserName,
+            };
 
-
+            var response= apiService.NewCustomer(customer);
+            IsRunning = false;
         }
 
         private async void TakePicture()
@@ -199,6 +217,8 @@ namespace ECommerceApp3.ViewModels
             netService = new NetService();
             apiService = new ApiService();
             dataService = new DataService();
+            gelocatorService = new GelocatorService();
+
             //ecommerce 134
             dialogService = new DialogService();
 

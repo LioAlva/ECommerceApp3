@@ -137,6 +137,47 @@ namespace ECommerceApp3.Services
             }
         }
 
+        public async Task<Response> NewCustomer(Customer customer)
+        {
+            try
+            {
+                var request = JsonConvert.SerializeObject(customer);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://zulu-software.com");
+                //client.BaseAddress = new Uri("http://luisperseo-001-site1.itempurl.com");
+                //var url = "/api/Users/Login";
+                var url = "/ECommerce/api/Customer";
+                var response = await client.PostAsync(url, content);
 
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = response.StatusCode.ToString(),
+                    };
+                }
+                var result = await response.Content.ReadAsStringAsync();
+                var newCustomer = JsonConvert.DeserializeObject<Customer>(result);
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Cliente creado Ok",
+                    Result = newCustomer
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+
+        }
     }
 }

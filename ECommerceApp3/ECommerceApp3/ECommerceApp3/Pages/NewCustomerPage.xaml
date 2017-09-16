@@ -20,8 +20,8 @@
           HeightRequest="100"
           VerticalOptions="Center"
           HorizontalOptions="Start">
-                </controls:CircleImage>
-      
+            </controls:CircleImage>
+
             <StackLayout
         Orientation="Horizontal">
                 <Label
@@ -117,7 +117,7 @@
           VerticalOptions="Center">
                 </control:BindablePicker>
             </StackLayout>
-            
+
             <StackLayout
         Orientation="Horizontal">
                 <Label
@@ -167,6 +167,8 @@
             </StackLayout>
             <StackLayout
         Orientation="Horizontal">
+                <ActivityIndicator IsRunning="{Binding IsRuning,Mode=TwoWay}">
+                </ActivityIndicator>
                 <Button
           Text="Guardar"
           Command="NewCustomerCommand"
@@ -183,11 +185,7 @@
           VerticalOptions="Center"
           HorizontalOptions="FillAndExpand">
                 </Button>
-               
             </StackLayout>
-           
         </StackLayout>
-
     </ScrollView>
-
 </ContentPage>

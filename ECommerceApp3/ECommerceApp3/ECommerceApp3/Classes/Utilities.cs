@@ -18,6 +18,5 @@ namespace ECommerceApp3.Classes
         {
             return Regex.Match(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}").Success;
         }
-
     }
 }
