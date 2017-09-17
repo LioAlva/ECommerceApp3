@@ -13,13 +13,20 @@ namespace ECommerceApp3.Services
         public double Longitude { get; set; }
         public async Task GetLocation()
         {
-            var locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 50;
+            try
+            {
+                var locator = CrossGeolocator.Current;
+                locator.DesiredAccuracy = 50;
 
-            //var location = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
-            var location = await locator.GetPositionAsync();
-            Latitud = location.Latitude;
-            Longitude = location.Longitude;
+                //var location = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
+                var location = await locator.GetPositionAsync();
+                Latitud = location.Latitude;
+                Longitude = location.Longitude;
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
         }
     }
 }
