@@ -70,14 +70,19 @@ namespace ECommerceApp3.Services
             App.Current.MainPage = new LoginPage();
         }
 
-        internal void SetMainPage(User user)
+        public void SetMainPage(User user)
         {
             //ya tenemos el usuario y a esta instanciado en el mainviewmodel
 
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.LoadUser(user);
             App.CurrentUser = user;//esta propiedad creo para guardar al usduario cuando doy logout y luego pueda conectarme si internet
-            App.Current.MainPage = new MasterPage();    
+            App.Current.MainPage = new MasterPage();
+        }
+
+        public async  Task Back()
+        {
+            await App.Navigator.PopAsync();
         }
     }
 }

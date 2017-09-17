@@ -141,12 +141,20 @@ namespace ECommerceApp3.ViewModels
                 //para mandar mandar latitud y longitud
                 Latitude = gelocatorService.Latitud,
                 Longitude = gelocatorService.Longitude,
-                Photo=Phone,
+                Phone=Phone,
+                //Photo=Photo,
                 UserName=UserName,
             };
 
-            var response= apiService.NewCustomer(customer);
+            var response=await apiService.NewCustomer(customer);
             IsRunning = false;
+            if (!response.IsSuccess)
+            {
+                await dialogService.ShowMessage("Error",response.Message);
+                return;
+            }
+            await dialogService.ShowMessage("Confirmación",response.Message);
+            await navigationService.Back();
         }
 
         private async void TakePicture()

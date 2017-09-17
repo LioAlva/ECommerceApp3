@@ -147,7 +147,7 @@ namespace ECommerceApp3.Services
                 client.BaseAddress = new Uri("http://zulu-software.com");
                 //client.BaseAddress = new Uri("http://luisperseo-001-site1.itempurl.com");
                 //var url = "/api/Users/Login";
-                var url = "/ECommerce/api/Customer";
+                var url = "/ECommerce/api/Customers";
                 var response = await client.PostAsync(url, content);
 
                 if (!response.IsSuccessStatusCode)
